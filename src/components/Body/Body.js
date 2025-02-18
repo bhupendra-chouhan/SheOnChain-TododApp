@@ -12,7 +12,7 @@ const Body = () => {
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState("");
 
-  const CONTRACT_ADDRESS = "0x1f421F8D9743C32B31218Dc3266CC14A128E23AA";
+  const CONTRACT_ADDRESS = "0xC232c9E7f2edCfCa3AA9E01Dc7982cCa8E28fBA4";
 
   // Initialize wallet connection and contract
   useEffect(() => {
@@ -36,8 +36,6 @@ const Body = () => {
         );
         setContract(contractInstance);
 
-        await fetchUserTodos(contractInstance);
-
         window.ethereum.on("accountsChanged", (accounts) => {
           setAccount(accounts[0]);
         });
@@ -56,10 +54,17 @@ const Body = () => {
     };
   }, []);
 
-  const fetchUserTodos = async (contractInstance) => {
+  useEffect(() => {
+    if (contract) {
+      fetchUserTodos();
+    }
+  }, [contract]);
+    
+  const fetchUserTodos = async () => {
     try {
       setLoading(true);
-      const userTodos = await contractInstance.getUserTodos();
+        const userTodos = await contract.getUserTodos();
+      console.log(userTodos);
       const formattedTodos = userTodos.map((todo) => ({
         id: todo.id.toString(),
         content: todo.content,

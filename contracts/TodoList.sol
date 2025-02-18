@@ -89,8 +89,10 @@ contract TodoList {
         uint counter = 0;
 
         for (uint i = 0; i<todos.length; i++) {
+            if (todos[i].creator == msg.sender) {
             userTodos[counter] = todos[i];
             counter++;
+            }
         }
 
         return userTodos;
