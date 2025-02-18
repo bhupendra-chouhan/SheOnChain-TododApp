@@ -15,6 +15,12 @@
 ```
 git clone <repo-link>
 ```
+
+##### (Optional) To switch to the ```full-stack``` branch, use the below command:
+```
+git checkout full-stack
+```
+
 ##### 2. Install all the dependencies
 ```
 npm i
